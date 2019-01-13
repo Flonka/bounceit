@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="Bounce It "
 config/icon="res://icon.png"
 
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
