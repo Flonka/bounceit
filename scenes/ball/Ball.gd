@@ -2,13 +2,14 @@ extends KinematicBody2D
 
 class_name Ball
 
+export(float) var init_velocity : float = 0.0
+
 var _velocity : Vector2
 
-const VELOCITY_MULTIPLIER : float = 1.08
-const INIT_VELOCITY : float = 5.0
+const VELOCITY_MULTIPLIER : float = 1.05
 
 func _ready() -> void:
-	_velocity = Vector2(randf(), randf()).normalized() * INIT_VELOCITY
+	_velocity = Vector2(randf(), randf()).normalized() * init_velocity
 
 func _physics_process(delta: float) -> void:
 	var ci : = move_and_collide(_velocity)
