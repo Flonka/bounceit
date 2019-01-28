@@ -20,4 +20,4 @@ func _ready() -> void:
 
 func _physics_process(delta :float) -> void:
 	var v : = get_global_mouse_position() - get_global_position()
-	var collision_info : = move_and_collide(v * _axis_vector)
+	move_and_collide(v * _axis_vector)

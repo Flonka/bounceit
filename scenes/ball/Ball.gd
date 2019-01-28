@@ -16,5 +16,8 @@ func _physics_process(delta: float) -> void:
 	if ci:
 		_velocity = _velocity.bounce(ci.normal)
 		_velocity *= VELOCITY_MULTIPLIER
+		var o : = ci.get_collider() as RigidBody2D
+		o.set_mode(RigidBody2D.MODE_RIGID)
+
 
 

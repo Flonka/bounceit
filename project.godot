@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "KinematicPaddle",
 "language": "GDScript",
 "path": "res://scenes/paddle/KinematicPaddle.gd"
+}, {
+"base": "RigidBody2D",
+"class": "RbPaddle",
+"language": "GDScript",
+"path": "res://scenes/rbpaddle/RbKinematidPaddle.gd"
 } ]
 _global_script_class_icons={
 "Ball": "",
-"KinematicPaddle": ""
+"KinematicPaddle": "",
+"RbPaddle": ""
 }
 
 [application]
@@ -45,6 +51,7 @@ window/stretch/aspect="keep"
 
 [physics]
 
+2d/thread_model=2
 2d/default_gravity=100
 
 [rendering]
