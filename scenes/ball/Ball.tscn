@@ -7,7 +7,6 @@
 radius = 20.0
 
 [node name="Ball" type="KinematicBody2D"]
-motion/sync_to_physics = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

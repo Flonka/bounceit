@@ -17,7 +17,9 @@ func _physics_process(delta: float) -> void:
 		_velocity = _velocity.bounce(ci.normal)
 		_velocity *= VELOCITY_MULTIPLIER
 		var o : = ci.get_collider() as RigidBody2D
-		o.set_mode(RigidBody2D.MODE_RIGID)
-
+		if o and o.get_mode() != RigidBody2D.MODE_RIGID:
+			o.set_mode(RigidBody2D.MODE_RIGID)
+			# Bug https://github.com/godotengine/godot/issues/25738
+			o.set_sleeping(false)
 
 
