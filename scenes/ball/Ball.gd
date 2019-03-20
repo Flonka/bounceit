@@ -11,16 +11,19 @@ const VELOCITY_MULTIPLIER : float = 1.05
 func _ready() -> void:
 	_velocity = Vector2(randf(), randf()).normalized() * init_velocity
 
+#warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
 	# https://stackoverflow.com/questions/41210110/curved-trajectory-for-a-2d-game-in-java
 	var ci : = move_and_collide(_velocity)
 	if ci:
+		var o : = ci.get_collider() as Paddle
+		if o:
+			o.ball_hit(ci, _velocity)
+
+		print(ci.get_collider_velocity())
+
 		_velocity = _velocity.bounce(ci.normal)
 		_velocity *= VELOCITY_MULTIPLIER
-		var o : = ci.get_collider() as RigidBody2D
-		if o and o.get_mode() != RigidBody2D.MODE_RIGID:
-			o.set_mode(RigidBody2D.MODE_RIGID)
-			# Bug https://github.com/godotengine/godot/issues/25738
-			o.set_sleeping(false)
+
 
 

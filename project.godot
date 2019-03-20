@@ -13,15 +13,21 @@ _global_script_classes=[ {
 "class": "Ball",
 "language": "GDScript",
 "path": "res://scenes/ball/Ball.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Paddle",
+"language": "GDScript",
+"path": "res://scenes/rbpaddle/RbKinematidPaddle.gd"
 } ]
 _global_script_class_icons={
-"Ball": ""
+"Ball": "",
+"Paddle": ""
 }
 
 [application]
 
 config/name="Bounce It "
-run/main_scene="res://main.tscn"
+run/main_scene="res://scenes/rbpaddle/PaddleTest.tscn"
 config/icon="res://icon.png"
 
 [debug]
