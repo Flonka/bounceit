@@ -28,9 +28,10 @@ func _physics_process(delta: float) -> void:
 		set_global_position(get_global_mouse_position() * _axis_vector)
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	var xform : Transform2D = state.get_transform()
-	xform.origin = get_global_position()
-	state.set_transform(xform)
+	if self.mode == RigidBody2D.MODE_KINEMATIC:
+		var xform : Transform2D = state.get_transform()
+		xform.origin = get_global_position()
+		state.set_transform(xform)
 
 func ball_hit(collision_object: KinematicCollision2D, ball_velocity : Vector2) -> void:
 	if self.mode != RigidBody2D.MODE_RIGID:
