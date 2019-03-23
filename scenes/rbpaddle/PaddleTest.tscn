@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/rbpaddle/PaddleTest.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ball/Ball.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/rbpaddle/RbKinematidPaddle.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1000, 10 )
 
 [node name="PaddleTest" type="Node"]
 script = ExtResource( 1 )
@@ -12,5 +15,25 @@ position = Vector2( 360, 190 )
 init_velocity = 1.0
 
 [node name="RbKinematidPaddle" parent="." instance=ExtResource( 3 )]
-position = Vector2( 250, 330 )
+position = Vector2( 540, 250 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 390, 440 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 60, -420 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -380, -70 )
+rotation = 1.57079
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 400, -90 )
+rotation = 1.57079
+shape = SubResource( 1 )
 

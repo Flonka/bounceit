@@ -44,6 +44,7 @@ window/stretch/aspect="keep"
 
 [physics]
 
+2d/thread_model=2
 2d/default_gravity=100
 
 [rendering]

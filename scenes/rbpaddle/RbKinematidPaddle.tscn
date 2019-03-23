@@ -19,6 +19,11 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 3.8147e-06, 4.76837e-07 )
-scale = Vector2( 1.5625, 0.625 )
+scale = Vector2( 0.943, 0.625 )
 texture = ExtResource( 2 )
 
+[node name="RigidTimer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="RigidTimer" to="." method="_on_RigidTimer_timeout"]
