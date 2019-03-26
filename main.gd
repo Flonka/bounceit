@@ -6,6 +6,12 @@ func _ready() -> void:
 
 	_add_paddles()
 
+	var ball := preload("res://scenes/ball/Ball.tscn").instance()
+	var s := get_viewport().get_size()
+	ball._velocity = Vector2(5,10) * 0.2
+	ball.set_global_position(s * 0.5)
+	add_child(ball)
+
 
 func _add_paddles() -> void:
 	var s := get_viewport().get_size()
@@ -16,24 +22,24 @@ func _add_paddles() -> void:
 
 	var top_paddle : Paddle = paddle_scene.instance()
 	top_paddle.set_axis_lock(Paddle.AxisUpdate.X)
-	top_paddle.set_position(Vector2(0, padding))
+	top_paddle.set_global_position(Vector2(0, padding))
 	self.add_child(top_paddle)
 
 	var bottom_paddle := paddle_scene.instance()
 	bottom_paddle.set_axis_lock(Paddle.AxisUpdate.X)
-	bottom_paddle.set_position(Vector2(0, s.y - padding))
+	bottom_paddle.set_global_position(Vector2(0, s.y - padding))
 	bottom_paddle.set_rotation_degrees(180)
 	self.add_child(bottom_paddle)
 
 	var right_paddle := paddle_scene.instance()
 	right_paddle.set_axis_lock(Paddle.AxisUpdate.Y)
 	right_paddle.set_rotation_degrees(90)
-	right_paddle.set_position(Vector2(s.x - padding, 0))
+	right_paddle.set_global_position(Vector2(s.x - padding, 0))
 	self.add_child(right_paddle)
 
 	var left_paddle := paddle_scene.instance()
 	left_paddle.set_axis_lock(Paddle.AxisUpdate.Y)
-	left_paddle.set_position(Vector2(padding, 0))
+	left_paddle.set_global_position(Vector2(padding, 0))
 	left_paddle.set_rotation_degrees(-90)
 	self.add_child(left_paddle)
 

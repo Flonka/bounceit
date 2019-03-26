@@ -2,14 +2,12 @@ extends KinematicBody2D
 
 class_name Ball
 
-export(float) var init_velocity : float = 0.0
+var velocity_multiplier : float = 1.005
 
 var _velocity : Vector2
 
-const VELOCITY_MULTIPLIER : float = 1.005
-
 func _ready() -> void:
-	_velocity = Vector2(randf(), randf()).normalized() * init_velocity
+	pass
 
 #warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
@@ -18,10 +16,9 @@ func _physics_process(delta: float) -> void:
 	if ci:
 		var o : = ci.get_collider() as Paddle
 		if o:
-			print("paddle collision")
+			#print("collider vel " + str(ci.get_collider_velocity()))
 			o.ball_hit(ci, _velocity)
-			print(ci.get_collider_velocity())
-			_velocity *= VELOCITY_MULTIPLIER
+			_velocity *= velocity_multiplier
 
 		_velocity = _velocity.bounce(ci.normal)
 
