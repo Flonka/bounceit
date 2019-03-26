@@ -7,19 +7,19 @@ enum AxisUpdate {X,Y,XY}
 onready var timer : Timer = $RigidTimer
 onready var position_tween := $PositionTween
 onready var rotation_tween := $RotationTween
+onready var original_rotation := self.get_rotation()
 
 const position_tween_duration := 1.1
 const rotation_tween_duration := 2.0
 const time_in_rigid_mode := 1.5
 
-var original_rotation := self.get_rotation()
-
 var _axis_vector: Vector2
 
 func _ready() -> void:
-	print_debug("Paddle ready called")
 	timer.set_one_shot(true)
 	timer.set_wait_time(time_in_rigid_mode)
+	if _axis_vector == Vector2.ZERO:
+		set_axis_lock(AxisUpdate.XY)
 
 func set_axis_lock(lock : int) -> void:
 	match lock:
@@ -34,13 +34,17 @@ func set_axis_lock(lock : int) -> void:
 func _physics_process(delta: float) -> void:
 	if mode == RigidBody2D.MODE_KINEMATIC:
 		if not position_tween.is_active():
-			set_global_position(get_global_mouse_position() * _axis_vector)
+			var relative_mouse_pos := get_local_mouse_position().rotated(self.get_rotation())
+			var new_pos := get_position() + relative_mouse_pos * _axis_vector
+			set_position(new_pos)
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	if self.mode == RigidBody2D.MODE_KINEMATIC:
 		var xform : Transform2D = state.get_transform().orthonormalized()
+
+		xform = xform.rotated(self.get_rotation())
 		xform.origin = get_global_position()
-		xform.rotated(self.get_rotation())
+		#print("sadf " + str(self.get_global_position()))
 		state.set_transform(xform)
 
 func ball_hit(collision_object: KinematicCollision2D, ball_velocity : Vector2) -> void:
