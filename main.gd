@@ -4,6 +4,10 @@ extends Node
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
+	_add_paddles()
+
+
+func _add_paddles() -> void:
 	var s := get_viewport().get_size()
 
 	var paddle_scene := preload("res://scenes/rbpaddle/RbKinematidPaddle.tscn")
