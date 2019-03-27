@@ -35,13 +35,12 @@ func _unhandled_input(event):
 			#prints(pos, i)
 			#p.apply_impulse(pos, i)
 			#p.apply_torque_impulse(40000)
-			p.hit_i = 1
+			p._hit_i = 1
 
 		if event.pressed and event.scancode == KEY_2:
 			p.set_mode(RigidBody2D.MODE_KINEMATIC)
 			p.set_gravity_scale(0)
 		if event.pressed and event.scancode == KEY_SPACE:
-			p.set_mode(RigidBody2D.MODE_KINEMATIC)
 			p.set_mode(RigidBody2D.MODE_RIGID)
 			prints(p.get_applied_force(), p.get_applied_torque(), p.get_linear_velocity(), p.angular_velocity)
 			var i := (Vector2.UP * 100).rotated(p.get_rotation())

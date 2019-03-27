@@ -16,11 +16,14 @@ const time_in_rigid_mode := 1.5
 
 var _axis_vector: Vector2
 
-var hit_i : int = 0
+# Workaround needed for bug causing a need for a physics-frame between
+# switching modes.
+var _hit_i : int = 0
+
 
 func _ready() -> void:
 
-	set_gravity_scale(1)
+	set_gravity_scale(0)
 
 	timer.set_one_shot(true)
 	timer.set_wait_time(time_in_rigid_mode)
@@ -43,22 +46,23 @@ func _physics_process(delta: float) -> void:
 			var relative_mouse_pos := get_local_mouse_position().rotated(self.get_rotation())
 			translate(relative_mouse_pos * _axis_vector)
 	elif mode == RigidBody2D.MODE_RIGID:
-		if hit_i > 0:
-			prints(hit_i)
-			hit_i -= 1
-		elif hit_i == 0:
-			var i := (Vector2.UP * 100).rotated(get_rotation())
-			var pos := Vector2(100,0).rotated(get_rotation())
-			apply_impulse(pos, i)
-			hit_i -= 1
+		_apply_impulses()
+
+func _apply_impulses() -> void:
+	"""Contains ugly workaround for 'physics-frame' bug"""
+
+	if _hit_i > 0:
+		_hit_i -= 1
+	elif _hit_i == 0:
+		var i := (Vector2.UP * 100).rotated(get_rotation())
+		var pos := Vector2(100,0).rotated(get_rotation())
+		apply_impulse(pos, i)
+		_hit_i -= 1
+
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	if self.mode == RigidBody2D.MODE_KINEMATIC:
-		var xform := state.get_transform().orthonormalized()
-		#warning-ignore:return_value_discarded
-		xform.rotated(self.get_rotation())
-		xform.origin = get_global_position()
-		state.set_transform(xform)
+		state.set_transform(get_global_transform())
 
 func ball_hit(c: KinematicCollision2D, ball_velocity : Vector2) -> void:
 
